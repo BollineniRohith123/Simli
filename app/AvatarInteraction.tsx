@@ -37,7 +37,7 @@ const AvatarInteraction: React.FC<AvatarInteractionProps> = ({
     if (videoRef.current && audioRef.current) {
       simliClient.Initialize({
         apiKey: process.env.NEXT_PUBLIC_SIMLI_API_KEY || '',
-        faceID: simli_faceid,
+        faceID: sandbox_faceid,
         handleSilence: true,
         maxSessionLength: 3600,
         maxIdleTime: 600,
@@ -46,7 +46,7 @@ const AvatarInteraction: React.FC<AvatarInteractionProps> = ({
       });
       console.log('Simli Client initialized');
     }
-  }, [simli_faceid]);
+  }, [sandbox_faceid]);
 
   const startRecording = async () => {
     try {
@@ -126,7 +126,7 @@ const AvatarInteraction: React.FC<AvatarInteractionProps> = ({
     onStart();
 
     await startConversation();
-    simliClient.start();
+    sandboxClient.start();
     startRecording();
   }, [onStart, startConversation]);
 
@@ -140,32 +140,32 @@ const AvatarInteraction: React.FC<AvatarInteractionProps> = ({
       audioStream.getTracks().forEach(track => track.stop());
     }
     
-    simliClient.close();
+    sandboxClient.close();
     socketRef.current?.close();
     window.location.href = '/';
   }, [audioStream]);
 
   useEffect(() => {
-    if (simliClient) {
-      simliClient.on('connected', () => {
-        console.log('SimliClient connected');
+    if (sandboxClient) {
+      sandboxClient.on('connected', () => {
+        console.log('SandboxClient connected');
         setIsAvatarVisible(true);
         const audioData = new Uint8Array(6000).fill(0);
-        simliClient.sendAudioData(audioData);
+        sandboxClient.sendAudioData(audioData);
       });
     }
   }, []);
 
   useEffect(() => {
-    initializeSimliClient();
+    initializeSandboxClient();
 
     return () => {
       if (socketRef.current) {
         socketRef.current.close();
       }
-      simliClient.close();
+      sandboxClient.close();
     };
-  }, [initializeSimliClient]);
+  }, [initializeSandboxClient]);
 
   useEffect(() => {
     if (audioStream && socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
@@ -200,7 +200,7 @@ const AvatarInteraction: React.FC<AvatarInteractionProps> = ({
             onClick={handleStart}
             disabled={isLoading}
             className={cn(
-              "w-full h-[52px] mt-4 disabled:bg-[#343434] disabled:text-white disabled:hover:rounded-[100px] bg-simliblue text-white py-3 px-6 rounded-[100px] transition-all duration-300 hover:text-black hover:bg-white hover:rounded-sm",
+              "w-full h-[52px] mt-4 disabled:bg-[#343434] disabled:text-white disabled:hover:rounded-[100px] bg-sandboxblue text-white py-3 px-6 rounded-[100px] transition-all duration-300 hover:text-black hover:bg-white hover:rounded-sm",
               "flex justify-center items-center"
             )}
           >
