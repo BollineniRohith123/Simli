@@ -23,7 +23,7 @@ const groq = new Groq({
 
 console.log("Deepgram API key:", process.env.DEEPGRAM_API_KEY ? `Set: ${process.env.DEEPGRAM_API_KEY}` : "Not set");
 console.log("Groq API key:", process.env.GROQ_API_KEY ? `Set: ${process.env.GROQ_API_KEY}` : "Not set");
-console.log("Simli API key:", process.env.NEXT_PUBLIC_SIMLI_API_KEY ? `Set: ${process.env.NEXT_PUBLIC_SIMLI_API_KEY}` : "Not set");
+console.log("Sandbox API key:", process.env.NEXT_PUBLIC_SANDBOX_API_KEY ? `Set: ${process.env.NEXT_PUBLIC_SANDBOX_API_KEY}` : "Not set");
 
 // Connection manager to keep track of active connections
 const connections = new Map();

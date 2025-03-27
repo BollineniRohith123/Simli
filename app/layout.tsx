@@ -7,8 +7,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Simli App (Groq + Deepgram)",
-  description: "Simli + Groq + Deepgram",
+  title: "Sandbox App (Groq + Deepgram)",
+  description: "Sandbox + Groq + Deepgram",
 };
 
 export default function RootLayout({
